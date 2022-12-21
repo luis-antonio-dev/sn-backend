@@ -42,7 +42,7 @@ routes.delete("/excluir", async (request, response) => {
 
     response.json({ gasto: result });
   } catch (error) {
-    return response.json({ error: error.toJSON() }).status(400);
+    return response.json({ error: String(error) }).status(400);
   }
 });
 
