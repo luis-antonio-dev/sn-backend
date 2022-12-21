@@ -30,16 +30,20 @@ routes.post("/cadastrar", async (request, response) => {
 });
 
 routes.delete("/excluir", async (request, response) => {
-  const database = client.db("test");
-  const cursor = database.collection("gastos");
+  try {
+    const database = client.db("test");
+    const cursor = database.collection("gastos");
 
-  const id = request.body.id;
+    const id = request.body.id;
 
-  const result = await cursor.deleteOne({
-    _id: new ObjectId(id),
-  });
+    const result = await cursor.deleteOne({
+      _id: new ObjectId(id),
+    });
 
-  response.json({ gasto: result });
+    response.json({ gasto: result });
+  } catch (error) {
+    return response.json({ error: error.toJSON() }).status(400);
+  }
 });
 
 export default routes;
